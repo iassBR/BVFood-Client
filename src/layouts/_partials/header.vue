@@ -14,10 +14,13 @@
 
           <div>
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item nav-cart active">
+              <li class="nav-item  active">
                 <router-link :to="{ name: 'cart' }" class="nav-link">
                   <i class="fas fa-shopping-cart"></i> (2)
                 </router-link>
+              </li>
+              <li class="nav-item  active">
+                <router-link class="nav-link" :to="{name: 'login'}">Entrar</router-link>
               </li>
             </ul>
           </div>
