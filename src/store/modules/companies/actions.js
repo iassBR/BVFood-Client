@@ -6,10 +6,18 @@ const RESOURCE = 'tenants'
 
 export default {
     getCompanies({ commit }) {
-        return axios.get(`${API_VERSION}/${RESOURCE}`)
-            .then(response => {
-                commit('SET_COMPANY', response.data)
-            })
+        commit('SET_PRELOADER', true)
+        commit('SET_TEXT_PRELOADER', 'Carregando as empresas')
+
+        setTimeout(() => {
+            return axios.get(`${API_VERSION}/${RESOURCE}`)
+                .then(response => {
+                    commit('SET_COMPANY', response.data)
+                })
+                .finally(() => commit('SET_PRELOADER', false))
+        }, 3000)
+
+
     }
 }
 

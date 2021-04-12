@@ -3,6 +3,7 @@
     <header-component />
     <!-- Page Content -->
     <div class="container container-body">
+       <preloader-component/>
       <router-view></router-view>
     </div>
 
