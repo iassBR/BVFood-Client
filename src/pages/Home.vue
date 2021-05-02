@@ -11,27 +11,29 @@
             :key="index"
           >
             <div class="restaurant-card">
-              <a class="logo" href="vitrine-tenant.html">
+              <a class="logo" href="#" @click.prevent="goStoreCompany(company)">
                 <img
                   v-if="company.image"
                   class="card-img-top"
                   :src="company.name"
                   :alt="company.name"
-              />
+                />
 
                 <img
                   v-else
                   class="card-img-top"
                   src="@/assets/imgs/vue-food.png"
                   :alt="company.name"
-              />
-              
+                />
               </a>
               <div class="restaurant-card-body">
                 <h3>
-                  <router-link :to="{ name: 'products' }">{{
+                  <!-- <router-link :to="{ name: 'products', params: {companyUrl: company.flag} }">{{
                     company.name
-                  }}</router-link>
+                  }}</router-link> -->
+                  <a href="" @click.prevent="goStoreCompany(company)">
+                    {{ company.name }}
+                  </a>
                 </h3>
               </div>
             </div>
@@ -46,20 +48,22 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapMutations } from "vuex";
 
 export default {
   mounted() {
-    this.getCompanies()
-          .catch(response => {
-            this.$vToastify.error("Falha ao carregar empresas. Tente novamente mais tarde", "Ops !");
-          });
+    this.getCompanies().catch((response) => {
+      this.$vToastify.error(
+        "Falha ao carregar empresas. Tente novamente mais tarde",
+        "Ops !"
+      );
+    });
   },
 
   computed: {
     ...mapState({
-      companies: state => state.companies.items
-    })
+      companies: (state) => state.companies.items,
+    }),
 
     // companies() {
     //   return this.$store.state.companies.items;
@@ -68,6 +72,16 @@ export default {
 
   methods: {
     ...mapActions(["getCompanies"]),
+
+    ...mapMutations({
+      setCompany: "SET_COMPANY_SELECTED",
+    }),
+
+    goStoreCompany(company) {
+      this.setCompany(company)
+
+      this.$router.push({name: 'products', params: { companyUrl: company.flag }})
+    },
   },
 };
 </script>
