@@ -192,7 +192,7 @@ export default {
   },
 
   mounted() {
-    console.log(this.companyUrl);
+    // console.log(this.companyUrl);
   },
 };
 </script>

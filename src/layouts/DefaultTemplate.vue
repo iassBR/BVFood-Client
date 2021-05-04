@@ -1,13 +1,13 @@
 <template>
   <div>
+    <preloader-component />
     <header-component />
     <!-- Page Content -->
     <div class="container container-body">
-       <preloader-component/>
       <router-view></router-view>
     </div>
 
-    <footer-component/>
+    <footer-component />
   </div>
   <!-- Page Content -->
 </template>
