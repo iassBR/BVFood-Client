@@ -4,17 +4,13 @@
     <h1 class="my-4 title-tenant text-center">Nome do Tenant</h1>
     <div class="row">
       <div class="list-categories">
-        <a href="#" class="list-categories__item active"
-          ><div class="icon"><i class="fas fa-pizza-slice"></i></div>
-          <span> Pizza </span>
-        </a>
-        <a href="#" class="list-categories__item active"
-          ><div class="icon"><i class="fas fa-hamburger"></i></div>
-          <span> Sanduiche </span>
-        </a>
-        <a href="#" class="list-categories__item active"
-          ><div class="icon"><i class="fas fa-ice-cream"></i></div>
-          <span> Sorvetes </span>
+        <a
+          href=""
+          class="list-categories__item active"
+          v-for="(category, index) in categories"
+          :key="index"
+        >
+          {{ category.name }}
         </a>
       </div>
     </div>
@@ -175,7 +171,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
   props: ["companyUrl"],
 
@@ -183,16 +179,24 @@ export default {
     if (this.company.name === "") {
       return this.$router.push({ name: "home" });
     }
+    console.log(this.company.uuid);
+    this.getCategoriesByCompany(this.company.uuid).catch((response) => {
+      this.$vToastify.error(
+        "Falha ao carregar as categorias. Tente novamente mais tarde",
+        "Ops !"
+      );
+    });
   },
 
   computed: {
     ...mapState({
       company: (state) => state.companies.companySelected,
+      categories: (state) => state.companies.companySelected.categoriesCompany,
     }),
   },
 
-  mounted() {
-    // console.log(this.companyUrl);
+  methods: {
+    ...mapActions(["getCategoriesByCompany"]),
   },
 };
 </script>

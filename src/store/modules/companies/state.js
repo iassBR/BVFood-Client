@@ -3,8 +3,12 @@ const state = {
         data: []
     },
     companySelected: {
-        name: ''
-    }
+        name: '',
+        categoriesCompany: {
+            data: []
+        }
+    },
+
 }
 
 

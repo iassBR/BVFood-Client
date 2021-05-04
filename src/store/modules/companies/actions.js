@@ -16,8 +16,19 @@ export default {
                 })
                 .finally(() => commit('SET_PRELOADER', false))
         }, 3000)
+    },
 
+    getCategoriesByCompany({ commit }, token_company) {
 
+        const params = { token_company }
+
+        commit('SET_PRELOADER', true)
+        commit('SET_TEXT_PRELOADER', 'Carregando as categorias')
+        return axios.get(`${API_VERSION}/categories`, { params })
+            .then(response => {
+                commit('SET_CATEGORIES_COMPANY', response.data)
+            })
+            .finally(() => commit('SET_PRELOADER', false));
     }
 }
 
